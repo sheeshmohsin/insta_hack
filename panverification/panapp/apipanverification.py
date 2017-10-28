@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
+from django.contrib import auth
 from panapp.serializers import UserDataSerializer, FeedbackSerializer, UserSerializer
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
@@ -39,7 +40,7 @@ class LoginUser(APIView):
     """
     View for Login
     """
-    def get(self, request, format):
+    def post(self, request, format=None):
         username = request.data.get('username')
         password = request.data.get('password')
         entity_type = 'user'
