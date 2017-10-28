@@ -50,37 +50,88 @@
 					<div class="col-md-6 col-lg-6 custom-right-margin">
 						<div class="row">
 							<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 custom-box-shadow agent-padding agent-border-radius agent-text custom-border-all">
-								<form class="form" role="form">
-									<div class="col-md-10 col-lg-10 col-xs-8">
+								<div class="row">
+									<div class="col-md-8 col-lg-8 col-xs-8">
 										<h4>User Details</h4>
-										<div class="col-md-12 col-lg-12">
-											<p class="medium-bold">Name&nbsp;&nbsp; : &nbsp; <span class="semi-bold">XYZ</span></p>
-										</div>
-										<div class="col-md-12 col-lg-12">
-											<p class="medium-bold">DOB&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; <span class="semi-bold">01/19/1990</span></p>
-										</div>
-										<div class="col-md-12 col-lg-12">
-											<p class="medium-bold">PAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; <span class="semi-bold">AWERT78796</span></p>
+										<div class="row">
+											<div class="col-md-12 col-lg-12">
+												<p class="medium-bold">Name&nbsp;&nbsp; : &nbsp; <span class="semi-bold">XYZ</span></p>
+											</div>
+											<div class="col-md-12 col-lg-12">
+												<p class="medium-bold">DOB&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; <span class="semi-bold">01/19/1990</span></p>
+											</div>
+											<div class="col-md-12 col-lg-12">
+												<p class="medium-bold">PAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; <span class="semi-bold">AWERT78796</span></p>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-2 col-lg-2 col-xs-4">
-										<h4 class="text-center">Invalid</h4>
+									<div class="col-md-2 col-lg-2 col-xs-2">
+										<h4 class="text-center hidden-xs hidden-sm">Correct</h4>
+										<h4 class="text-center hidden-lg hidden-md"><i class="fa fa-check" aria-hidden="true"></i></h4>
 										<div class="row">
-											<div class="col-md-12 col-lg-12 custom-checkbox text-center first-margin">
-												<input id="name" type="checkbox" />
+											<div class="col-md-12 col-lg-12 custom-checkbox-correct text-center first-margin">
+												<input class="name" name="name" id="name" type="checkbox" value="1"/>
 	  											<label for="name"></label>
 											</div>
-											<div class="col-md-12 col-lg-12 custom-checkbox text-center first-margin">
-												<input id="dob" type="checkbox" />
+											<div class="col-md-12 col-lg-12 custom-checkbox-correct text-center first-margin">
+												<input class="dob" name="dob" id="dob" type="checkbox" value="1"/>
 	  											<label for="dob"></label>
 											</div>
-											<div class="col-md-12 col-lg-12 custom-checkbox text-center first-margin">
-												<input id="pan" type="checkbox" />
+											<div class="col-md-12 col-lg-12 custom-checkbox-correct text-center first-margin">
+												<input class="pan" name="pan" id="pan" type="checkbox" value="1"/>
 	  											<label for="pan"></label>
 											</div>
 										</div>
 									</div>
-								</form>
+									<div class="col-md-2 col-lg-2 col-xs-2">
+										<h4 class="text-center hidden-xs hidden-sm">Wrong</h4>
+										<h4 class="text-center hidden-lg hidden-md"><i class="fa fa-times" aria-hidden="true"></i></h4>
+										<div class="row">
+											<div class="col-md-12 col-lg-12 custom-checkbox-wrong text-center first-margin">
+												<input class="name1" name="name1" id="name1" type="checkbox" value="1" onchange="valueChecked()"/>
+	  											<label for="name1"></label>
+											</div>
+											<div class="col-md-12 col-lg-12 custom-checkbox-wrong text-center first-margin">
+												<input class="dob1" name="dob1" id="dob1" type="checkbox" value="1" onchange="valueChecked()"/>
+	  											<label for="dob1"></label>
+											</div>
+											<div class="col-md-12 col-lg-12 custom-checkbox-wrong text-center first-margin">
+												<input class="pan1" name="pan1" id="pan1" type="checkbox" value="1" onchange="valueChecked()"/>
+	  											<label for="pan1"></label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr id="hr_line"></hr>
+								<div class="row" id="details_correct">
+									<div class="col-md-12 col-lg-12">
+										<h4>Provide correct data from image</h4>
+									</div>
+								</div>
+								<div class="row" id="edit_name">
+									<div class="col-md-3 col-lg-3">
+										<label class="agent-label">Name</label>
+									</div>
+									<div class="col-md-9 col-lg-9 form-group agent-custom-control">
+										<input type="text" name="first_name" id="first_name" placeholder="Name of the applicant" class="form-control">
+									</div>
+								</div>
+								<div class="row" id="edit_dob">
+									<div class="col-md-3 col-lg-3">
+										<label class="agent-label">DOB</label>
+									</div>
+									<div class="col-md-9 col-lg-9 form-group agent-custom-control">
+										<input type="text" name="date_of_birth" id="date_of_birt" placeholder="Date Of Birth" class="form-control">
+									</div>
+								</div>
+								<div class="row" id="edit_pan">
+									<div class="col-md-3 col-lg-3">
+										<label class="agent-label">PAN</label>
+									</div>
+									<div class="col-md-9 col-lg-9 form-group agent-custom-control">
+										<input type="text" name="pan_no" id="pan_no" placeholder="Permanent Account Number" class="form-control">
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="row button-margin-top">
@@ -99,5 +150,6 @@
 		<script src="assets/js/jquery.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
 		<script src="assets/js/custom.js"></script>
+		<script src="assets/js/custom-script.js"></script>
 	</body>
 </html>
