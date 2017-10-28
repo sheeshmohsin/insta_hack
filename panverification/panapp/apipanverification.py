@@ -2,19 +2,43 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
-from panapp.serializers import UserDataSerializer, FeedbackSerializer
+from panapp.serializers import UserDataSerializer, FeedbackSerializer, UserSerializer
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from panapp.models import Agent, UserData
 from panapp.utils import extract_text, check_if_pan_card_pic, get_data, verify_pan_number
+from rest_framework.authtoken.models import Token
 import json
+
+
+class CreateUser(APIView):
+    authentication_classes = ()
+    permission_classes = ()
+
+    def post(self, request, format=None):
+        print "here", request.data
+        entity_type = request.data.get('entity_type')
+        data = {}
+        data['username'] = request.data.get('username')
+        data['password'] = request.data.get('password')
+        serialized = UserSerializer(data=data)
+        if serialized.is_valid():
+            serialized.save()
+            print serialized.data
+            user = User.objects.get(username=serialized.data['username'])
+            # api_key = Token.objects.create(user=user)
+            if entity_type == 'agent':
+                Agent.objects.create(user=user)
+            return Response(serialized.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetails(APIView):
     parser_classes = (MultiPartParser, )
     """
     View to upload data of users
     """
-    def post(self, request, format='png'):
+    def post(self, request, format=None):
         """
         Save data of users with pan card image
         """
