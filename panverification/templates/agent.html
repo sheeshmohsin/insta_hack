@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Agent</title>
+		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<link rel="stylesheet" href="assets/css/bootstrap.css">
+  		<link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.css">
+  		<link rel="stylesheet" href="assets/css/animate.css">
+  		<link rel="stylesheet" href="assets/css/custom.css">
+	</head>
+	<body>
+		<!-- Navbar Section Start -->
+			<nav class="navbar navbar-default custom-navbar">
+			  	<div class="container-fluid">
+				    <div class="navbar-header">
+				      	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        	<span class="icon-bar"></span>
+				        	<span class="icon-bar"></span>
+				        	<span class="icon-bar"></span>                        
+				      	</button>
+				      	<a class="navbar-brand" href="#">HackOverflow-PAN</a>
+				    </div>
+			    	<div class="collapse navbar-collapse" id="myNavbar">
+					    <ul class="nav navbar-nav navbar-right custom-link">
+					        <li class="dropdown">
+					          	<a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="assets/img/user.jpeg" alt="user-image" width="30px" height="30px" class="img-circle">&nbsp; JohnDoe&nbsp; <span class="caret"></span></a>
+					          	<ul class="dropdown-menu custom-dropdown animated slideInDown">
+						            <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp; Profile</a></li>
+						            <li><a href="#"><i class="fa fa-sliders" aria-hidden="true"></i>&nbsp; Setting</a></li>
+						            <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp; Logout</a></li>
+					          	</ul>
+					        </li>
+					    </ul>
+			    	</div>
+			  	</div>
+			</nav>
+		<!-- Navbar Section End -->
+
+		<!-- Agent Container Start -->
+		<div class="container">
+			<div class="col-md-12 col-lg-12 custom-heading">
+				<h4>Agent Information</h4>
+			</div>
+			<div class="col-md-12 col-lg-12 custom-box-shadow custom-bg custom-padding custom-border">
+				<div class="row">
+					<div class="col-md-3 col-lg-3"></div>
+					<div class="col-md-6 col-lg-6">
+						<img src="assets/img/user.jpeg" alt="user_pan image" class="img-responsive image-height">
+					</div>
+					<div class="col-md-3 col-lg-3"></div>
+				</div>
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10 agent-margin">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+								<div class="col-md-12 col-lg-12 custom-box-shadow agent-padding agent-border-radius agent-text">
+									<h4>User Details</h4>
+									<div class="row">
+										<div class="col-md-12 col-lg-12">
+											<p class="medium-bold">Name&nbsp;&nbsp; : &nbsp; <span class="semi-bold">XYZ</span></p>
+										</div>
+										<div class="col-md-12 col-lg-12">
+											<p class="medium-bold">DOB&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; <span class="semi-bold">01/19/1990</span></p>
+										</div>
+										<div class="col-md-12 col-lg-12">
+											<p class="medium-bold">PAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp; <span class="semi-bold">AWERT78796</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6 margin-top">
+								<div class="row">
+									<div class="col-lg-12 col-md-12">
+										<button type="button" class="btn btn-success btn-submit btn-padding-big btn-block"><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp; Verify</button>
+										<button type="button" class="btn btn-danger btn-padding-big btn-invalid btn-block"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp; Invalid</button>
+										<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-padding-big btn-feedback btn-block"><i class="fa fa-commenting" aria-hidden="true"></i>&nbsp; Feedback</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-1"></div>
+				</div>
+			</div>
+		</div>
+		<!-- Agent Container End -->
+
+		<!-- Feedback Modal Start -->
+			<div id="myModal" class="modal fade" role="dialog">
+			  	<div class="modal-dialog">
+				    <div class="modal-content">
+				      	<div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					        <h4 class="modal-title">Modal Header</h4>
+				      	</div>
+				      	<div class="modal-body">
+				        	<p>Some text in the modal.</p>
+				      	</div>
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				     	</div>
+			    	</div>
+			  	</div>
+			</div>
+		<!-- Feedback Modal End -->
+		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/custom.js"></script>
+	</body>
+</html>
