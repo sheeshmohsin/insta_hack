@@ -239,11 +239,10 @@ body{
 .agent-border-radius{
 	border-radius:10px;
 }
-.custom-checkbox input[type=checkbox] {
+.custom-checkbox-correct input[type=checkbox] {
   display: none;
 }
-/* to hide the checkbox itself */
-.custom-checkbox input[type=checkbox] + label:before {
+.custom-checkbox-correct input[type=checkbox] + label:before {
   content: "\f1db";
   font-size: 23px;
   color:#676a6c;
@@ -258,12 +257,41 @@ body{
   display: inline-block;
   margin-right: 5px;
 }
-.custom-checkbox input[type=checkbox]:checked + label:before {
+.custom-checkbox-correct input[type=checkbox]:checked + label:before {
+  content: "\f058";
+  display: inline-block;
+  animation:fadein 0.4s ease-in;
+}
+.custom-checkbox-correct input[type=checkbox]:checked + label:before {
+  font-size: 23px;
+  vertical-align: top;
+  color:#1ab394;
+  line-height: 1.3;
+}
+.custom-checkbox-wrong input[type=checkbox] {
+  display: none;
+}
+.custom-checkbox-wrong input[type=checkbox] + label:before {
+  content: "\f1db";
+  font-size: 23px;
+  color:#676a6c;
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  margin-right: 5px;
+}
+.custom-checkbox-wrong input[type=checkbox]:checked + label:before {
   content: "\f057";
   display: inline-block;
   animation:fadein 0.4s ease-in;
 }
-.custom-checkbox input[type=checkbox]:checked + label:before {
+.custom-checkbox-wrong input[type=checkbox]:checked + label:before {
   font-size: 23px;
   vertical-align: top;
   color:#e60000;
@@ -293,6 +321,96 @@ body{
 }
 .btn-border-radius{
 	border-radius:12px;
+}
+.agent-label{
+	margin-top: 6px;
+	color:#676a6c;
+	font-family:Lato-Regular;
+	opacity: 0.8;
+}
+.agent-custom-control input[type="text"]{
+	border-color:#e0e0e0;
+	border-radius:15px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+	-o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+	-ms-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0);
+	-webkit-transition:border-color 0.5s ease-in-out;
+	-moz-transition:border-color 0.5s ease-in-out;
+	-o-transition:border-color 0.5s ease-in-out;
+	-ms-transition:border-color 0.5s ease-in-out;
+	transition:border-color 0.5s ease-in-out;
+}
+.agent-custom-control input[type="text"]:focus{
+	border-color:#1ab394;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	-o-box-shadow:none;
+	-ms-box-shadow:none;
+	outline:none;
+}
+.agent-custom-control input{
+	color:#1ab394;
+	text-shadow: 0px 0px 0px #676a6c !important;
+  	-webkit-text-fill-color: transparent !important;
+  	word-spacing: 2px;
+}
+.agent-custom-control input::-webkit-input-placeholder{
+  color:#676a6c;
+  opacity: 0.3;
+  text-shadow: none;
+  -webkit-text-fill-color: initial;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: auto auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.double-bounce1,
+.double-bounce2 {
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.66);
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: bounce 2s infinite ease-in-out;
+  animation: bounce 2s infinite ease-in-out;
+}
+.double-bounce2 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+.custom-height-spinner{
+	height:300px;
+}
+.message-spinner{
+	position: relative;
+    left: 0;
+    top: 54%;
+    bottom: 0;
+    right: 0;
+    color: #676a6c;
+    font-family: Lato-Light;
+}
+.message-spinner h5{
+	font-size:18px;
+}
+.check-mark-margin{
+	margin-top:4px;
+}
+.custom-para p{
+	margin-bottom: 0;
 }
 /*.image-height{ 
 	height:360px;
@@ -446,5 +564,27 @@ body{
     to {
         opacity: 1;
     }
+}
+@-webkit-keyframes bounce {
+  0%, 100% {
+    -webkit-transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+  }
 }
 /*-----======= Navbar CSS Ends =====-------*/

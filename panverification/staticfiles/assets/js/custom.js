@@ -27,26 +27,3 @@
 		input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
 	});
 }( document, window, 0 ));
-
-$(document).ready(function() {
-	$("#uploadForm").submit(function(e){
-		var authorizationToken = "Token dddfe7aeaf208c1b5234d92b2f56e7271862b044";
-		var formData = new FormData(this);
-		console.log(formData);
-		$.ajax({
-			data: formData,
-			type: $(this).attr('method'),
-			url: $(this).attr('action'),
-			// enctype: 'multipart/form-data',
-			contentType: false,
-			processData: false,
-			headers: {'Authorization': authorizationToken},
-			beforeSend: function(request){
-				request.setRequestHeader("Authorization", authorizationToken)
-			}
-		}).done(function(data){
-			console.log("done");
-		});
-		return false;
-	});
-});
