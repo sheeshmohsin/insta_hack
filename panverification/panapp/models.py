@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from panapp.utils import get_upload_file_path
-from panapp.constants import INVALID_CHOICES, FEEDBACK_CHOICES
+from panapp.constants import INVALID_CHOICES, FEEDBACK_CHOICES, PAN_CARD_STATUS, PENDING
 
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -29,6 +29,8 @@ class UserData(models.Model):
 	is_scanned = models.BooleanField(default=False)
 	user = models.ForeignKey(User, blank=True, null=True)
 	agent = models.ForeignKey(Agent, blank=True, null=True)
+	status = models.CharField(max_length=2, choices=PAN_CARD_STATUS,
+								default=PENDING)
 
 	def __unicode__(self):
 		return "userdata"

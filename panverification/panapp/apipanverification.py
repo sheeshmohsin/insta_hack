@@ -9,6 +9,7 @@ from panapp.models import Agent, UserData
 from panapp.utils import extract_text, check_if_pan_card_pic, get_data, verify_pan_number
 from rest_framework.authtoken.models import Token
 import json
+from panapp.constants import COMPLETED
 
 
 class CreateUser(APIView):
@@ -32,6 +33,26 @@ class CreateUser(APIView):
             return Response(serialized.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LoginUser(APIView):
+    """
+    View for Login
+    """
+    def get(self, request, format):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        entity_type = 'user'
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            try:
+                api_key = Token.objects.get(user=user)
+            except:
+                api_key = Token.objects.create(user=user)
+            if Agent.objects.filter(user=user).exists():
+                entity_type = 'agent'
+            return Response({'api_key': api_key, 'entity_type':entity_type}, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 class UserDetails(APIView):
     parser_classes = (MultiPartParser, )
@@ -136,11 +157,11 @@ class VerificationDetails(APIView):
         user_data = UserData.objects.get(id=user_id)
         data = {}
         data['is_verified_agent'] = request.data.get('verified_agent')
-        data['is_invalid_agent'] = request.data.get('invalid_agent')
+        data['status'] = COMPLETED
         print data
         agent = Agent.objects.get(user=self.request.user)
         serializer = UserDataSerializer(user_data, data=data, partial=True)
         if serializer.is_valid():
             serializer.save(agent=agent)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

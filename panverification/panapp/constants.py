@@ -29,3 +29,11 @@ FEEDBACK_CHOICES = (
 	(PAN, "PAN Feedback"),
 	(IMG, "IMG Feedback")
 )
+
+PENDING = 1
+COMPLETED = 2
+
+PAN_CARD_STATUS = (
+	(PENDING, "Pending"),
+	(COMPLETED, "Completed")
+)
