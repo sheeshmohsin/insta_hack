@@ -9,7 +9,7 @@ from panapp.models import Agent, UserData
 from panapp.utils import extract_text, check_if_pan_card_pic, get_data, verify_pan_number
 from rest_framework.authtoken.models import Token
 import json
-from panapp.constants import COMPLETED
+from panapp.constants import COMPLETED, PENDING
 
 
 class CreateUser(APIView):
@@ -136,32 +136,88 @@ class FeedbackData(APIView):
         Save feedback data from Agent
         """
         feedback_serialized_data = []
-        feedback_data = request.data
+        feedback_data = request.data.get(feedback_data)
         for feedback in feedback_data:
-            data = {}
-            data['user_data'] = feedback.get('user_data')
-            data['feedback_for'] = feedback.get('feedback_for')
-            data['details'] = feedback.get('details')
-            serializer = FeedbackSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-                feedback_serialized_data.append(serializer.data)
-                print serializer.data
+            f_data = {}
+            if userdata_id:
+                f_data['user_data'] = userdata_id
+            if feedback.get('feedback_for'):
+                f_data['feedback_for'] = feedback.get('feedback_for')
+            if feedback.get('details'):
+                f_data['details'] = feedback.get('details')
+            f_serializer = FeedbackSerializer(data=f_data)
+            if f_serializer.is_valid():
+                f_serializer.save()
+                feedback_serialized_data.append(f_serializer.data)
+                print f_serializer.data
             else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(f_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(feedback_serialized_data, status=status.HTTP_201_CREATED)
 
 class VerificationDetails(APIView):
     def put(self, request, userdata_id, format=None):
-        print "request.data", request.data
-        user_data = UserData.objects.get(id=user_id)
-        data = {}
-        data['is_verified_agent'] = request.data.get('verified_agent')
-        data['status'] = COMPLETED
-        print data
-        agent = Agent.objects.get(user=self.request.user)
-        serializer = UserDataSerializer(user_data, data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save(agent=agent)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        agent = None
+        try:
+            agent = Agent.objects.get(user=self.request.user)
+        except:
+            pass
+        if agent:
+            print "request.data", request.data
+            user_data = UserData.objects.get(id=user_id)
+            data = {}
+            data['is_verified_agent'] = request.data.get('verified_agent')
+            data['status'] = COMPLETED
+            print data
+            agent = Agent.objects.get(user=self.request.user)
+            serializer = UserDataSerializer(user_data, data=data, partial=True)
+            if serializer.is_valid():
+                serializer.save(agent=agent)
+                feedback_serialized_data = []
+                feedback_data = request.data.get(feedback_data)
+                for feedback in feedback_data:
+                    f_data = {}
+                    if userdata_id:
+                        f_data['user_data'] = userdata_id
+                    if feedback.get('feedback_for'):
+                        f_data['feedback_for'] = feedback.get('feedback_for')
+                    if feedback.get('details'):
+                        f_data['details'] = feedback.get('details')
+                    f_serializer = FeedbackSerializer(data=f_data)
+                    if f_serializer.is_valid():
+                        f_serializer.save()
+                        feedback_serialized_data.append(f_serializer.data)
+                        print f_serializer.data
+                    else:
+                        return Response(f_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response(feedback_serialized_data, status=status.HTTP_201_CREATED)
+                # return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+class NextPANData(APIView):
+    """
+    View to get next PAN Data for verification
+    """
+    def get(self, request, format=None):
+        agent = None
+        try:
+            agent = Agent.objects.get(user=self.request.user)
+        except:
+            pass
+        if agent:
+            user_data = UserData.objects.filter(agent=agent, status=PENDING)
+            if user_data.exists():
+                api_key = Token.objects.get(user=agent.user)
+                data = {'user_data':user_data[0], 'api_key':api_key}
+                return Response(data, status=HTTP_200_OK)
+            else:
+                user_data = UserData.objects.filter(status=PENDING).first()
+                user_data.agent = agent
+                user_data.save()
+                api_key = Token.objects.get(user=agent.user)
+                data = {'user_data':user_data[0], 'api_key':api_key}
+                return Response(data, status=HTTP_200_OK)
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+
