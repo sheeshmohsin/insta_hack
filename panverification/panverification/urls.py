@@ -20,4 +20,5 @@ import panapp
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^v1/', include('panapp.urls')),
+    url(r'^user/$', panapp.views.user_page),
 ]
