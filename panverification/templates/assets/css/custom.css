@@ -135,7 +135,7 @@ body{
     z-index: -1;
 }
 .inputfile + label {
-    max-width: 80%;
+    max-width: 100%;
     font-size: 1.25rem;
     font-weight: 700;
     text-overflow: ellipsis;
@@ -145,6 +145,7 @@ body{
     overflow: hidden;
     padding: 12px;
     border-radius: 15px;
+    width:100%;
 }
 .inputfile:focus + label,
 .inputfile.has-focus + label {
@@ -179,6 +180,10 @@ body{
     background-color: #e0e0e0;
     outline:none;
     color:#000000;
+}
+.inputfile-1:focus + label,
+.inputfile-1.has-focus + label{
+	border-color:#1ab394;
 }
 .btn-submit{
 	background-color:#1dc9a6;
