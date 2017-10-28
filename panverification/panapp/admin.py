@@ -10,12 +10,12 @@ class UserDataAdmin(admin.ModelAdmin):
     list_display = ('id', 'image')
     ordering = ('-id', )
 
-# class FeedbackDataAdmin(admin.ModelAdmin):
-# 	list_display = ('id', 'user_data', 'feedback_for', 'details')
-# 	ordering = ('-id', )
+class FeedbackDataAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user_data', 'feedback_for', 'details')
+    ordering = ('-id', )
 
-# admin.site.register(UserData, UserDataAdmin)
-# admin.site.register(FeedbackData, FeedbackDataAdmin)
+admin.site.register(UserData, UserDataAdmin)
+admin.site.register(FeedbackData, FeedbackDataAdmin)
 admin.site.register(FailedUserData)
 
 
