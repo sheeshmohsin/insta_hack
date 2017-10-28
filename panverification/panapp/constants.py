@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+All Constants here
+"""
+
 
 NAME_INVALID = 1
 DOB_INVALID = 2
