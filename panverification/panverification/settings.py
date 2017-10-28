@@ -143,12 +143,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Kolkata'
 CELERY_IMPORTS = ['panapp.tasks']
-CELERY_BEAT_SCHEDULE = {
-    'image_validation': {
-        'task': 'panapp.tasks.image_validation',
-        'schedule': crontab()
-    }
-}
+CELERY_BEAT_SCHEDULE = {}
 
 
 # OCR Space API Key
@@ -165,3 +160,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
