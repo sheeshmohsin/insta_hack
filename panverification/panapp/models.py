@@ -32,7 +32,7 @@ class UserData(models.Model):
 	agent = models.ForeignKey(Agent, blank=True, null=True)
 
 	def __unicode__(self):
-		return self.user.username
+		return self.name
 
 
 class FailedUserData(models.Model):

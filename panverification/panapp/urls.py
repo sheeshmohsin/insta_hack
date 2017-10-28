@@ -6,5 +6,6 @@ from panapp import apipanverification
 urlpatterns = [
 
 url(r'^user_data/$', apipanverification.UserDetails.as_view()),
+url(r'^feedback_data/$', apipanverification.FeedbackData.as_view()),
 
 ]
