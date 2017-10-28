@@ -6,6 +6,8 @@ from panapp.serializers import UserDataSerializer, FeedbackSerializer
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from panapp.models import Agent, UserData
+from panapp.utils import extract_text, check_if_pan_card_pic
+import json
 
 class UserDetails(APIView):
     parser_classes = (MultiPartParser, )
@@ -23,6 +25,8 @@ class UserDetails(APIView):
         else:
             err_msg = 'Please upload a image'
             return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
+
+
         # name = request.data.get('name')
         # dob = request.data.get('dob')
         # pan_number = request.data.get('pan_number')
@@ -45,6 +49,30 @@ class UserDetails(APIView):
         serializer = UserDataSerializer(data=data)
         if serializer.is_valid():
             serializer.save(user=self.request.user)
+            user_data = UserData.objects.get(id=serializer.data['id'])
+            extract_response = extract_text(user_data)
+            if extract_response.status_code == 200:
+                res_data = r.json()
+                if res_data['IsErroredOnProcessing']:
+                    user_data.delete()
+                    err_msg = "Some error occurred. Please try again"
+                    return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    try:
+                        parsed_text = res_data['ParsedResults'][0]['ParsedText']
+                        parsed_text = parsed_text.split('\r\n')
+                        if not check_if_pan_card_pic(parsed_text):
+                            user_data.delete()
+                            err_msg = "This is not a valid PAN Card Image"
+                            return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
+                    except Exception as e:
+                        user_data.delete()
+                        err_msg = "Some error occurred. Please try again"
+                        return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                user_data.delete()
+                err_msg = "Problem in uploading image. Please try again"
+                return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
