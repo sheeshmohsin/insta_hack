@@ -101,17 +101,13 @@ def verify_pan_number(parsed_text):
 		z = re.match(reg_exp, pan)
 		if z:
 			if not fourth_char_dict.get(pan[3], None):
-				print "here"
 				return False
 			if not fifth_char_dict.get(pan[4], None):
-				print "here1"
 				return False
 			return True
 		else:
-			print "here2"
 			return False
 	else:
-		print "here3"
 		return False
 
 	
