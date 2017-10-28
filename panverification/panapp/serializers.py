@@ -5,7 +5,7 @@ class UserDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserData
-        fields = ('id', 'name', 'dob', 'pan', 'image')
+        fields = ('id', 'image', 'is_verified_agent', 'is_invalid_agent', 'agent')
 
 class FeedbackSerializer(serializers.ModelSerializer):
 
