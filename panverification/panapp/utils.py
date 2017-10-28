@@ -20,11 +20,13 @@ def extract_text(data):
 
 def check_if_pan_card_pic(parsed_text):
 	status = False
-	if len(parsed_text) > 6:
+	if len(parsed_text) >= 6:
 		if 'INCOME TAX DEPARTMENT' in str(parsed_text[0]).strip().upper():
 			if 'GOVT. OF INDIA' in str(parsed_text[5]).strip().upper():
 				status = True
 				return status
+	else:
+		return False
 	for text in parsed_text:
 		if 'INCOME TAX DEPARTMENT' in text.strip():
 			status = True
@@ -70,4 +72,14 @@ def match_with_user_data(parsed_text, data):
 	if not pan_matched:
 		res['reason'].append(PAN_INVALID)
 	return res
+
+
+def get_data(parsed_text):
+	data = (False, False, False)
+	if len(parsed_text) >= 6:
+		name = str(parsed_text[1]).strip().upper()
+		dob = str(parsed_text[3]).strip().upper()
+		pan = str(parsed_text[5]).strip().upper()
+		data = (name, dob, pan)
+	return data
 	
