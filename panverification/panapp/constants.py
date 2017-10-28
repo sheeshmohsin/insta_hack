@@ -30,8 +30,8 @@ FEEDBACK_CHOICES = (
 	(IMG, "IMG Feedback")
 )
 
-PENDING = 1
-COMPLETED = 2
+PENDING = '1'
+COMPLETED = '2'
 
 PAN_CARD_STATUS = (
 	(PENDING, "Pending"),

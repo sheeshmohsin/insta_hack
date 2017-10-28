@@ -26,7 +26,10 @@ class UserData(models.Model):
 	extracted_dob = models.CharField(max_length=12, blank=True, null=True)
 	extracted_pan = models.CharField(max_length=10, blank=True, null=True)
 	is_verified_agent = models.BooleanField(default=False)
+	is_invalid_auto = models.BooleanField(default=False)
+	is_verified_auto = models.BooleanField(default=False)
 	is_scanned = models.BooleanField(default=False)
+	error_msg = models.CharField(max_length=100, blank=True, null=True)
 	user = models.ForeignKey(User, blank=True, null=True)
 	agent = models.ForeignKey(Agent, blank=True, null=True)
 	status = models.CharField(max_length=2, choices=PAN_CARD_STATUS,

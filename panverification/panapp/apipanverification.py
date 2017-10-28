@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from panapp.models import Agent, UserData
 from panapp.utils import extract_text, check_if_pan_card_pic, get_data, verify_pan_number
+from panapp.tasks import image_validation
 from rest_framework.authtoken.models import Token
 import json
 from panapp.constants import COMPLETED
@@ -94,39 +95,7 @@ class UserDetails(APIView):
         serializer = UserDataSerializer(data=data)
         if serializer.is_valid():
             serializer.save(user=self.request.user)
-            user_data = UserData.objects.get(id=serializer.data['id'])
-            extract_response = extract_text(user_data)
-            if extract_response.status_code == 200:
-                res_data = extract_response.json()
-                if res_data['IsErroredOnProcessing']:
-                    user_data.delete()
-                    err_msg = "Some error occurred. Please try again"
-                    return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
-                else:
-                    try:
-                        parsed_text = res_data['ParsedResults'][0]['ParsedText']
-                        parsed_text = parsed_text.split('\r\n')
-                        if not check_if_pan_card_pic(parsed_text):
-                            user_data.delete()
-                            err_msg = "This is not a valid PAN Card Image"
-                            return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
-                        if not verify_pan_number(parsed_text):
-                            user_data.delete()
-                            err_msg = "This is not a valid PAN Card Number"
-                            return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
-                    except Exception as e:
-                        user_data.delete()
-                        err_msg = "Some error occurred. Please try again"
-                        return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                user_data.delete()
-                err_msg = "Problem in uploading image. Please try again"
-                return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
-            name, dob, pan = get_data(parsed_text)
-            user_data.extracted_name = name
-            user_data.extracted_dob = dob
-            user_data.extracted_pan = pan
-            user_data.save()
+            image_validation.delay(serializer.data['id'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -165,3 +134,17 @@ class VerificationDetails(APIView):
             serializer.save(agent=agent)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CheckStatus(APIView):
+    def get(self, request, userdata_id):
+        res = {'status': False}
+        user_data = UserData.objects.get(id=userdata_id)
+        if user_data.is_verified_auto or user_data.is_invalid_auto:
+            res['status'] = True
+            res['is_verified_auto'] = user_data.is_verified_auto
+            res['is_invalid_auto'] = user_data.is_invalid_auto
+            res['error_msg'] = user_data.error_msg
+            return Response(res, status=status.HTTP_200_OK)
+        return Response(res, status=status.HTTP_200_OK)
+
