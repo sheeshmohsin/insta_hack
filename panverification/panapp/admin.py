@@ -7,7 +7,7 @@ from panapp.models import UserData, FailedUserData, FeedbackData
 # Register your models here.
 
 class UserDataAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'name', 'dob', 'pan', 'image')
+    list_display = ('id', 'image')
     ordering = ('-id', )
 
 class FeedbackDataAdmin(admin.ModelAdmin):
