@@ -6,7 +6,7 @@ from panapp.serializers import UserDataSerializer, FeedbackSerializer
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from panapp.models import Agent, UserData
-from panapp.utils import extract_text, check_if_pan_card_pic
+from panapp.utils import extract_text, check_if_pan_card_pic, get_data, verify_pan_number
 import json
 
 class UserDetails(APIView):
@@ -52,7 +52,7 @@ class UserDetails(APIView):
             user_data = UserData.objects.get(id=serializer.data['id'])
             extract_response = extract_text(user_data)
             if extract_response.status_code == 200:
-                res_data = r.json()
+                res_data = extract_response.json()
                 if res_data['IsErroredOnProcessing']:
                     user_data.delete()
                     err_msg = "Some error occurred. Please try again"
@@ -65,6 +65,10 @@ class UserDetails(APIView):
                             user_data.delete()
                             err_msg = "This is not a valid PAN Card Image"
                             return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
+                        if not verify_pan_number(parsed_text):
+                            user_data.delete()
+                            err_msg = "This is not a valid PAN Card Number"
+                            return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
                     except Exception as e:
                         user_data.delete()
                         err_msg = "Some error occurred. Please try again"
@@ -73,6 +77,11 @@ class UserDetails(APIView):
                 user_data.delete()
                 err_msg = "Problem in uploading image. Please try again"
                 return Response(err_msg, status=status.HTTP_400_BAD_REQUEST)
+            name, dob, pan = get_data(parsed_text)
+            user_data.extracted_name = name
+            user_data.extracted_dob = dob
+            user_data.extracted_pan = pan
+            user_data.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

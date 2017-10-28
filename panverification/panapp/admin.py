@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-<<<<<<< HEAD
 from panapp.models import UserData, FailedUserData, FeedbackData
 
 # Register your models here.
