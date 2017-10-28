@@ -5,6 +5,17 @@ from django.contrib import admin
 from panapp.models import UserData, FailedUserData, FeedbackData
 
 # Register your models here.
-admin.site.register(UserData)
+
+class UserDataAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'name', 'dob', 'pan', 'image')
+    ordering = ('-id', )
+
+class FeedbackDataAdmin(admin.ModelAdmin):
+	list_display = ('id', 'user_data', 'feedback_for', 'details')
+	ordering = ('-id', )
+
+admin.site.register(UserData, UserDataAdmin)
+admin.site.register(FeedbackData, FeedbackDataAdmin)
 admin.site.register(FailedUserData)
-admin.site.register(FeedbackData)
+
+

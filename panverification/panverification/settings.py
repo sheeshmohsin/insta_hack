@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'panapp',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -70,6 +72,21 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'PAGINATE_BY': 10,
+    'PAGINATE_BY_PARAM': 'page_size',
+    'MAX_PAGINATE_BY': 100,
+}
 
 WSGI_APPLICATION = 'panverification.wsgi.application'
 
@@ -141,6 +158,7 @@ OCR_SPACE_API = 'https://api.ocr.space/parse/image'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 
 STATIC_URL = '/static/'
 
