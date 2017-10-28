@@ -1,4 +1,4 @@
-import uuid, os, requests
+import uuid, os, requests, re
 from django.conf import settings
 from panapp.constants import NAME_INVALID, DOB_INVALID, PAN_INVALID
 
@@ -20,11 +20,13 @@ def extract_text(data):
 
 def check_if_pan_card_pic(parsed_text):
 	status = False
-	if len(parsed_text) > 6:
+	if len(parsed_text) >= 6:
 		if 'INCOME TAX DEPARTMENT' in str(parsed_text[0]).strip().upper():
 			if 'GOVT. OF INDIA' in str(parsed_text[5]).strip().upper():
 				status = True
 				return status
+	else:
+		return False
 	for text in parsed_text:
 		if 'INCOME TAX DEPARTMENT' in text.strip():
 			status = True
@@ -70,4 +72,42 @@ def match_with_user_data(parsed_text, data):
 	if not pan_matched:
 		res['reason'].append(PAN_INVALID)
 	return res
+
+
+def get_data(parsed_text):
+	data = (False, False, False)
+	if len(parsed_text) >= 6:
+		name = str(parsed_text[1]).strip().upper()
+		dob = str(parsed_text[3]).strip().upper()
+		pan = str(parsed_text[5]).strip().upper()
+		data = (name, dob, pan)
+	return data
+
+
+def verify_pan_number(parsed_text):
+	reg_exp = "[A-Z]{5}[0-9]{4}[A-Z]{1}"
+	fourth_char_dict = {
+						'A': True, 'B': True, 'C': True, 'F': True, 'G': True,
+						'H': True, 'L': True, 'J': True, 'P': True, 'T': True, 
+						'K': True
+						}
+	fifth_char_dict = {}
+	if len(parsed_text) >= 6:
+		pan = str(parsed_text[5]).strip().upper()
+		name = str(parsed_text[1]).strip().upper()
+		for name_part in name.split():
+			if name_part:
+				fifth_char_dict[name_part[0]] = True
+		z = re.match(reg_exp, pan)
+		if z:
+			if not fourth_char_dict.get(pan[3], None):
+				return False
+			if not fifth_char_dict.get(pan[4], None):
+				return False
+			return True
+		else:
+			return False
+	else:
+		return False
+
 	
