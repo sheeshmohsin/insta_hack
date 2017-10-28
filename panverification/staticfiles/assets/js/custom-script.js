@@ -4,6 +4,32 @@ $(document).ready(function(){
   	$("#edit_pan").hide();
   	$("#details_correct").hide();
   	$("#hr_line").hide();
+
+    var authorizationToken = "Token efcaccbcb4cdf7cfe24ec163ae1e65ad23d4f21e";
+    $.ajax({
+      type: 'GET',
+      url: '/v1/next_data/',
+      // enctype: 'multipart/form-data',
+      dateType: 'json',
+      headers: {'Authorization': authorizationToken},
+      beforeSend: function(request){
+        request.setRequestHeader("Authorization", authorizationToken)
+      }
+    }).done(function(data){
+      console.log("here in done");
+      console.log(data);
+      window.data = data;
+      $('#extracted-name').text(data.user_data.extracted_name);
+      $('#extracted-dob').text(data.user_data.extracted_dob);
+      $('#extracted-pan').text(data.user_data.extracted_pan);
+      $('#image-url').attr('src', data.user_data.extracted_image);
+    }).fail(function(response, status, error) {
+        error = response.responseJSON;
+        $('#data_next').html('Save and Next &nbsp; <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>');
+        $('#data_next').attr('disabled', false);
+        e.preventDefault();
+        return false;
+    });
 });
 function valueChecked(){
   	if($('.name1').is(":checked")){

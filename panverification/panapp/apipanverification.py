@@ -10,7 +10,7 @@ from panapp.utils import extract_text, check_if_pan_card_pic, get_data, verify_p
 from rest_framework.authtoken.models import Token
 import json
 from panapp.constants import COMPLETED, PENDING
-
+from django.forms import model_to_dict
 
 class CreateUser(APIView):
     authentication_classes = ()
@@ -50,7 +50,7 @@ class LoginUser(APIView):
                 api_key = Token.objects.create(user=user)
             if Agent.objects.filter(user=user).exists():
                 entity_type = 'agent'
-            return Response({'api_key': api_key, 'entity_type':entity_type}, status=status.HTTP_200_OK)
+            return Response({'api_key': api_key.key, 'entity_type':entity_type}, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -205,18 +205,28 @@ class NextPANData(APIView):
         except:
             pass
         if agent:
+            user_dict = {}
             user_data = UserData.objects.filter(agent=agent, status=PENDING)
             if user_data.exists():
+                user_data = user_data[0]
                 api_key = Token.objects.get(user=agent.user)
-                data = {'user_data':user_data[0], 'api_key':api_key}
-                return Response(data, status=HTTP_200_OK)
+                user_dict['extracted_name'] = user_data.extracted_name
+                user_dict['extracted_dob'] = user_data.extracted_dob
+                user_dict['extracted_image'] = str(user_data.image)
+                user_dict['extracted_pan'] = user_data.extracted_pan
+                data = {'user_data':user_dict, 'api_key':api_key.key}
+                return Response(data, status=status.HTTP_200_OK)
             else:
                 user_data = UserData.objects.filter(status=PENDING).first()
                 user_data.agent = agent
                 user_data.save()
+                user_dict['extracted_name'] = user_data.extracted_name
+                user_dict['extracted_dob'] = user_data.extracted_dob
+                user_dict['extracted_image'] = str(user_data.image)
+                user_dict['extracted_pan'] = user_data.extracted_pan
                 api_key = Token.objects.get(user=agent.user)
-                data = {'user_data':user_data[0], 'api_key':api_key}
-                return Response(data, status=HTTP_200_OK)
+                data = {'user_data':user_dict, 'api_key':api_key.key}
+                return Response(data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
