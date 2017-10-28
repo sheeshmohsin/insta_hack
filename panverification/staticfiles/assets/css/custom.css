@@ -368,7 +368,7 @@ body{
   position: relative;
   margin: auto auto;
   left: 0;
-  top: 34%;
+  top: 0;
   right: 0;
   bottom: 0;
 }
@@ -395,7 +395,7 @@ body{
 	height:300px;
 }
 .message-spinner{
-	position: absolute;
+	position: relative;
     left: 0;
     top: 54%;
     bottom: 0;
@@ -407,7 +407,10 @@ body{
 	font-size:18px;
 }
 .check-mark-margin{
-	margin-top:15px;
+	margin-top:4px;
+}
+.custom-para p{
+	margin-bottom: 0;
 }
 /*.image-height{ 
 	height:360px;
