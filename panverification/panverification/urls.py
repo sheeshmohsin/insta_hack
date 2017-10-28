@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^v1/', include('panapp.urls')),
     url(r'^user/$', panapp.views.user_page),
     url(r'^agent/$', panapp.views.agent_page),
+    url(r'^login/$', panapp.views.login_page),
+    url(r'^signup/$', panapp.views.signup_page),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
