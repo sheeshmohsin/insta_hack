@@ -1,7 +1,7 @@
 
 from django.conf.urls import url, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from panapp import apipanverification
+from panapp import apipanverification, views
 
 urlpatterns = [
 
