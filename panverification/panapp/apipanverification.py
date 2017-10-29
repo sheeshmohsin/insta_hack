@@ -136,7 +136,7 @@ class VerificationDetails(APIView):
             pass
         if agent:
             print "request.data", request.data
-            user_data = UserData.objects.get(id=user_id)
+            user_data = UserData.objects.get(id=userdata_id)
             data = {}
             data['is_verified_agent'] = request.data.get('verified_agent')
             data['status'] = COMPLETED
@@ -146,7 +146,7 @@ class VerificationDetails(APIView):
             if serializer.is_valid():
                 serializer.save(agent=agent)
                 feedback_serialized_data = []
-                feedback_data = request.data.get(feedback_data)
+                feedback_data = request.data.get('feedback_data', [])
                 for feedback in feedback_data:
                     f_data = {}
                     if userdata_id:
@@ -183,23 +183,29 @@ class NextPANData(APIView):
             if user_data.exists():
                 user_data = user_data[0]
                 api_key = Token.objects.get(user=agent.user)
+                user_dict['id'] = user_data.id
                 user_dict['extracted_name'] = user_data.extracted_name
                 user_dict['extracted_dob'] = user_data.extracted_dob
                 user_dict['extracted_image'] = str(user_data.image)
                 user_dict['extracted_pan'] = user_data.extracted_pan
                 data = {'user_data':user_dict, 'api_key':api_key.key}
+                print "if", data
                 return Response(data, status=status.HTTP_200_OK)
             else:
                 user_data = UserData.objects.filter(status=PENDING).first()
-                user_data.agent = agent
-                user_data.save()
-                user_dict['extracted_name'] = user_data.extracted_name
-                user_dict['extracted_dob'] = user_data.extracted_dob
-                user_dict['extracted_image'] = str(user_data.image)
-                user_dict['extracted_pan'] = user_data.extracted_pan
-                api_key = Token.objects.get(user=agent.user)
-                data = {'user_data':user_dict, 'api_key':api_key.key}
-                return Response(data, status=status.HTTP_200_OK)
+                if user_data:
+                    user_data.agent = agent
+                    user_data.save()
+                    user_dict['id'] = user_data.id
+                    user_dict['extracted_name'] = user_data.extracted_name
+                    user_dict['extracted_dob'] = user_data.extracted_dob
+                    user_dict['extracted_image'] = str(user_data.image)
+                    user_dict['extracted_pan'] = user_data.extracted_pan
+                    api_key = Token.objects.get(user=agent.user)
+                    data = {'user_data':user_dict, 'api_key':api_key.key}
+                    print "else",data
+                    return Response(data, status=status.HTTP_200_OK)
+                return Response({}, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 class CheckStatus(APIView):

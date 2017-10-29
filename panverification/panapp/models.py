@@ -36,7 +36,7 @@ class UserData(models.Model):
 								default=PENDING)
 
 	def __unicode__(self):
-		return "userdata"
+		return str(self.id)
 
 
 class FailedUserData(models.Model):

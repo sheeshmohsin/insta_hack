@@ -36,7 +36,10 @@
 		<!-- Navbar Section End -->
 
 		<!-- Agent Container Start -->
-		<div class="container">
+		<h2 id="no-data"></h2>
+		<div class="container" id="pan-card-data">
+
+			<div class="alert hide alert-error" id="validation-error"></div>
 			<div class="col-md-12 col-lg-12 custom-heading">
 				<h4>Agent Information</h4>
 			</div>
@@ -119,12 +122,12 @@
 										<label class="agent-label">DOB</label>
 									</div>
 									<div class="col-md-9 col-lg-9 form-group agent-custom-control">
-										<input type="text" name="date_of_birth" id="date_of_birt" placeholder="Date Of Birth" class="form-control">
+										<input type="text" name="date_of_birth" id="date_of_birth" placeholder="Date Of Birth" class="form-control">
 									</div>
 								</div>
 								<div class="row" id="edit_pan">
 									<div class="col-md-3 col-lg-3">
-										<label class="agent-label">PAN</label>
+										<label class="agent-label">PAN Number</label>
 									</div>
 									<div class="col-md-9 col-lg-9 form-group agent-custom-control">
 										<input type="text" name="pan_no" id="pan_no" placeholder="Permanent Account Number" class="form-control">
@@ -133,11 +136,11 @@
 							</div>
 						</div>
 						<div class="row button-margin-top">
-							<div class="col-lg-6 col-md-6 text-center">
+							<!-- <div class="col-lg-6 col-md-6 text-center">
 								<button type="button" class="btn btn-success btn-submit btn-padding-big btn-block btn-border-radius">Submit &nbsp; <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-							</div>
+							</div> -->
 							<div class="col-lg-6 col-md-6 text-center custom-right-margin-btn">
-								<button type="button" class="btn btn-primary btn-next btn-padding-big btn-block btn-border-radius" id="data_next">Next &nbsp; <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+								<button type="button" class="btn btn-primary btn-next btn-padding-big btn-block btn-border-radius" id="data_next">Submit and Next &nbsp; <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
 							</div>
 						</div>
 					</div>
