@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^user/$', panapp.views.user_page),
     url(r'^agent/$', panapp.views.agent_page),
     url(r'^login/$', panapp.views.login_page),
-    url(r'^signup/$', panapp.views.signup_page),
+    url(r'^signup_agent/$', panapp.views.signup_agent_page),
+    url(r'^signup_user/$', panapp.views.signup_user_page),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
