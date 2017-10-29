@@ -113,10 +113,11 @@ class ImageUploadTestCase(TestCase):
 		self.assertEqual(resp.status_code, 200)
 		api_key = resp.json()['api_key']
 		token = 'Token ' + api_key
-		print token
+		auth_headers = {
+    		'HTTP_AUTHORIZATION': token,
+		}
 		path = str(settings.BASE_DIR) + '/panapp/testimg/pan_card_sample_2.jpg'
 		headers = {'Authorization': token}
 		with open(path) as fp:
-			resp = self.client.post('/v1/user_data/', {'pan_image': fp}, headers=headers)
-		print resp.content
+			resp = self.client.post('/v1/user_data/', {'pan_image': fp}, **auth_headers)
 		self.assertEqual(resp.status_code, 201)
