@@ -19,7 +19,6 @@ class CreateUser(APIView):
     permission_classes = ()
 
     def post(self, request, format=None):
-        print "here", request.data
         entity_type = request.data.get('entity_type')
         data = {}
         data['username'] = request.data.get('username')
@@ -27,7 +26,6 @@ class CreateUser(APIView):
         serialized = UserSerializer(data=data)
         if serialized.is_valid():
             serialized.save()
-            print serialized.data
             user = User.objects.get(username=serialized.data['username'])
             # api_key = Token.objects.create(user=user)
             if entity_type == 'agent':
@@ -122,7 +120,6 @@ class FeedbackData(APIView):
             if f_serializer.is_valid():
                 f_serializer.save()
                 feedback_serialized_data.append(f_serializer.data)
-                print f_serializer.data
             else:
                 return Response(f_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(feedback_serialized_data, status=status.HTTP_201_CREATED)
@@ -135,12 +132,10 @@ class VerificationDetails(APIView):
         except:
             pass
         if agent:
-            print "request.data", request.data
             user_data = UserData.objects.get(id=userdata_id)
             data = {}
             data['is_verified_agent'] = request.data.get('verified_agent')
             data['status'] = COMPLETED
-            print data
             agent = Agent.objects.get(user=self.request.user)
             serializer = UserDataSerializer(user_data, data=data, partial=True)
             if serializer.is_valid():
@@ -159,7 +154,6 @@ class VerificationDetails(APIView):
                     if f_serializer.is_valid():
                         f_serializer.save()
                         feedback_serialized_data.append(f_serializer.data)
-                        print f_serializer.data
                     else:
                         return Response(f_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
                 return Response(feedback_serialized_data, status=status.HTTP_201_CREATED)
@@ -189,7 +183,6 @@ class NextPANData(APIView):
                 user_dict['extracted_image'] = str(user_data.image)
                 user_dict['extracted_pan'] = user_data.extracted_pan
                 data = {'user_data':user_dict, 'api_key':api_key.key}
-                print "if", data
                 return Response(data, status=status.HTTP_200_OK)
             else:
                 user_data = UserData.objects.filter(status=PENDING).first()
@@ -203,7 +196,6 @@ class NextPANData(APIView):
                     user_dict['extracted_pan'] = user_data.extracted_pan
                     api_key = Token.objects.get(user=agent.user)
                     data = {'user_data':user_dict, 'api_key':api_key.key}
-                    print "else",data
                     return Response(data, status=status.HTTP_200_OK)
                 return Response({}, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
