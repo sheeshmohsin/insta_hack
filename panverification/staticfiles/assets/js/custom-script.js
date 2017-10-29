@@ -45,7 +45,7 @@ $(document).ready(function(){
       console.log("here in done");
       console.log(data);
       window.data = data;
-      if (data.length > 0) {
+      if (Object.keys(data).length > 0) {
         $('#no-data').html('');
         $('#no-data').addClass('hide');
         $('#pan-card-data').removeClass('hide');
