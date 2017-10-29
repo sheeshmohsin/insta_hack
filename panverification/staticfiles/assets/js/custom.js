@@ -91,6 +91,22 @@ function logout(){
 	window.location = '/login/';
 }
 
+function hideSignupError(){
+	$("#signupError").hide();
+}
+
+function hideLoginError(){
+	$("#loginError").hide();
+}
+
+function backButton(){
+	$("#uploadFormDiv").show();
+	$("#waitDiv").hide();
+	$("#analyzeDiv").hide();
+	$("#successDiv").hide();
+	$("#errorDiv").hide();
+}
+
 // if (readCookie('api_key')){
 // 	if (readCookie('entity_type') == 'user'){
 
@@ -156,8 +172,10 @@ $(document).ready(function() {
         			window.location = '/agent/'
         		}
         	} else {
-        		console.log("Login Failed");
+        		$("#loginError").show();
         	}
+        }).fail(function(rs, textStatus, xhr){
+        	$("#loginError").show();
         });
         e.preventDefault();
 	})
@@ -171,8 +189,10 @@ $(document).ready(function() {
         	if (xhr.status === 201){
         		window.location = '/login/';
         	} else {
-        		console.log("Signup Failed");
+        		$("#signupError").show();
         	}
+        }).fail(function(rs, textStatus, xhr){
+        	$("#signupError").show();
         });
         e.preventDefault();
 	})

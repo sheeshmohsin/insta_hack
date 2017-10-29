@@ -413,7 +413,22 @@ body{
     font-family: Lato-Light;
 }
 .message-spinner h5{
-	font-size:18px;
+	font-size:17px;
+}
+.message-spinner a{
+	font-size: 18px;
+    text-decoration: none;
+    color: #1ab394;
+    font-family: Lato-Light;
+    -webkit-transition:all 0.3s ease-in-out;
+	-moz-transition:all 0.3s ease-in-out;
+	-o-transition:all 0.3s ease-in-out;
+	-ms-transition:all 0.3s ease-in-out;
+	transition:all 0.3s ease-in-out;
+}
+.message-spinner a:hover, .message-spinner a:focus{
+	color:#23527c;
+	outline:none;
 }
 .check-mark-margin{
 	margin-top:4px;
@@ -443,9 +458,11 @@ body{
 .alert-msg-margin{
 	margin-top:18px;
 }
-/*.image-height{ 
-	height:360px;
-}*/
+.image-height{
+	height: 285px;
+    width: 100%;
+    border: 1px solid #f2f2f2;
+}
 @media (min-width:1200px){
 	.custom-margin{
 		margin:80px auto !important;
@@ -531,7 +548,7 @@ body{
 		margin-top:20px;
 	}
 	.button-margin-top{
-		margin-top:25px;
+		margin-top:18px !important;
 	}
 	.custom-box-shadow{
 		box-shadow: none;
@@ -576,7 +593,7 @@ body{
 		margin-top:20px;
 	}
 	.button-margin-top{
-		margin-top:25px;
+		margin-top:7px;
 	}
 	.custom-box-shadow{
 		box-shadow: none;
@@ -609,9 +626,20 @@ body{
 	    background-color: transparent;
 	    color: #ffffff;
 	}
-	/*.image-height {
-	    height: 200px;
-	}*/
+	.mobile-margin{
+		margin-bottom:15px;
+	}
+	.cutsom-alert-image{
+		box-shadow: rgba(196, 196, 196, 0.88) 0px 0px 6px;
+	    background-color: #fff;
+	    border-color: #fff;
+	    border-radius: 20px;
+	    -webkit-transition:all 0.5s ease-in-out;
+		-moz-transition:all 0.5s ease-in-out;
+		-o-transition:all 0.5s ease-in-out;
+		-ms-transition:all 0.5s ease-in-out;
+		transition:all 0.5s ease-in-out;
+	}
 }
 @keyframes tick{
   	0%{
