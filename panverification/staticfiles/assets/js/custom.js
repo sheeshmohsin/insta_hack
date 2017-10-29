@@ -99,6 +99,14 @@ function hideLoginError(){
 	$("#loginError").hide();
 }
 
+function backButton(){
+	$("#uploadFormDiv").show();
+	$("#waitDiv").hide();
+	$("#analyzeDiv").hide();
+	$("#successDiv").hide();
+	$("#errorDiv").hide();
+}
+
 // if (readCookie('api_key')){
 // 	if (readCookie('entity_type') == 'user'){
 
