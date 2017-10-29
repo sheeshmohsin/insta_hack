@@ -98,3 +98,25 @@ class LoginTestCase(TestCase):
 			})
 		self.assertEqual(resp.status_code, 401)
 
+
+class ImageUploadTestCase(TestCase):
+
+	def test_upload(self):
+		resp = self.client.post('/v1/signup/', {
+							'username': 'testuser', 'password': 'testuser',
+							'entity_type': 'user'
+							})
+		self.assertEqual(resp.status_code, 201)
+		resp = self.client.post('/v1/login/', {
+				'username': 'testuser', 'password': 'testuser'
+			})
+		self.assertEqual(resp.status_code, 200)
+		api_key = resp.json()['api_key']
+		token = 'Token ' + api_key
+		print token
+		path = str(settings.BASE_DIR) + '/panapp/testimg/pan_card_sample_2.jpg'
+		headers = {'Authorization': token}
+		with open(path) as fp:
+			resp = self.client.post('/v1/user_data/', {'pan_image': fp}, headers=headers)
+		print resp.content
+		self.assertEqual(resp.status_code, 201)
