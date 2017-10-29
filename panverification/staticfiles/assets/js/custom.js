@@ -117,7 +117,6 @@ $(document).ready(function() {
 	$("#uploadForm").submit(function(e){
 		var authorizationToken = "Token "+ String(readCookie('api_key'));
 		var formData = new FormData(this);
-		console.log(formData);
 		$("#uploadFormDiv").hide();
 		$("#waitDiv").show();
 		$("#analyzeDiv").hide();

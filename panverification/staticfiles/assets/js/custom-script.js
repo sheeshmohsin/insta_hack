@@ -42,8 +42,6 @@ $(document).ready(function(){
         request.setRequestHeader("Authorization", authorizationToken)
       }
     }).done(function(data){
-      console.log("here in done");
-      console.log(data);
       window.data = data;
       if (Object.keys(data).length > 0) {
         $('#no-data').html('');
