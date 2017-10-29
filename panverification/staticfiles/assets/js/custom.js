@@ -29,7 +29,7 @@
 }( document, window, 0 ));
 
 function check_status(data_id){
-	var authorizationToken = "Token dddfe7aeaf208c1b5234d92b2f56e7271862b044";
+	var authorizationToken = "Token " + String(readCookie('api_key'));
 	$.ajax({
 		type: 'GET',
 		url: '/v1/check_status/'+ String(data_id) +'/',
