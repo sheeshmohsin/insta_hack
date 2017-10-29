@@ -1,3 +1,29 @@
+function createCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    }
+    else var expires = "";               
+
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
+}
+
 $(document).ready(function(){
 	$("#edit_name").hide();
   	$("#edit_dob").hide();
@@ -5,7 +31,7 @@ $(document).ready(function(){
   	$("#details_correct").hide();
   	$("#hr_line").hide();
 
-    var authorizationToken = "Token efcaccbcb4cdf7cfe24ec163ae1e65ad23d4f21e";
+    var authorizationToken = "Token " + readCookie('api_key');
     $.ajax({
       type: 'GET',
       url: '/v1/next_data/',
@@ -82,7 +108,7 @@ function clear_error() {
 }
 
 $(document.body).on('click', '#data_next', function(e){
-  var authorizationToken = "Token efcaccbcb4cdf7cfe24ec163ae1e65ad23d4f21e";
+  var authorizationToken = "Token " + readCookie('api_key');
   data_val = [];
   var verified_agent = false;
   if (!($('#name').is(':checked')) && !($('#name1').is(':checked'))){
