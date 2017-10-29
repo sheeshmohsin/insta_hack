@@ -28,13 +28,13 @@
 				<div class="col-md-8 col-lg-6 col-xs-12 col-sm-12 custom-heading custom-margin">
 					<h3 class="text-center">Signup</h3>
 					<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 custom-box-shadow custom-text custom-bg custom-padding">
-						<form class="form" role="form">
+						<form class="form" role="form" id="signupForm" method="POST" action="/v1/signup/">
 							<div class="row form-group">
 								<div class="col-md-3 col-lg-4 col-xs-12 col-sm-3">
 									<label class="custom-label"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;&nbsp; Username</label>
 								</div>
 								<div class="col-md-9 col-lg-8 col-xs-12 col-sm-9">
-									<input type="email" class="form-control" name="email" id="email" placeholder="Enter Username...">
+									<input type="text" class="form-control" name="username" id="email" placeholder="Enter Username...">
 								</div>
 							</div>
 							<div class="row form-group">
@@ -42,8 +42,9 @@
 									<label class="custom-label"><i class="fa fa-key fa-rotate-180" aria-hidden="true"></i>&nbsp;&nbsp; Password</label>
 								</div>
 								<div class="col-md-9 col-lg-8 col-xs-12 col-sm-9">
-									<input type="password" class="form-control" name="pass" id="pass" placeholder="Enter Password...">
+									<input type="password" class="form-control" name="password" id="pass" placeholder="Enter Password...">
 								</div>
+								<input type="hidden" name="entity_type" value="user"/>
 							</div>
 							<div class="row">
 								<div class="col-md-3 col-lg-4 col-sm-3"></div>
