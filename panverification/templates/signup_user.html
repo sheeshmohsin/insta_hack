@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Signup</title>
+		<title>Signup User</title>
 		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
   		<link rel="shortcut icon" type="image/png" href="hacker.png" />
@@ -15,8 +15,18 @@
 			<nav class="navbar navbar-default custom-navbar">
 			  	<div class="container-fluid">
 				    <div class="navbar-header">
+				    	<button type="button" class="navbar-toggle navbar-toggle-btn" data-toggle="collapse" data-target="#myNavbar">
+				        	<span class="icon-bar"></span>
+				        	<span class="icon-bar"></span>
+				        	<span class="icon-bar"></span>                        
+				      	</button>
 				      	<a class="navbar-brand" href="#">HackOverflow-PAN</a>
 				    </div>
+				    <div class="collapse navbar-collapse" id="myNavbar">
+					    <ul class="nav navbar-nav navbar-right custom-link">
+					    	<li><a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp; Login</a>
+						</ul>
+					</div>
 			  	</div>
 			</nav>
 		<!-- Navbar Section End -->
@@ -25,7 +35,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2 col-lg-3"></div>
-				<div class="col-md-8 col-lg-6 col-xs-12 col-sm-12 custom-heading custom-margin">
+				<div class="col-md-8 col-lg-6 col-xs-12 col-sm-12 custom-heading custom-margin animated zoomIn">
 					<h3 class="text-center">Signup</h3>
 					<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 custom-box-shadow custom-text custom-bg custom-padding">
 						<form class="form" role="form" id="signupForm" method="POST" action="/v1/signup/">
@@ -54,6 +64,13 @@
 								<div class="col-md-12 col-lg-4"></div>
 							</div>
 						</form>
+						<!-- <div class="row">
+							<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+								<div class="alert alert-info">
+								  	<strong>Login Failed!</strong> Please try again...
+								</div>
+							</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="col-md-2 col-lg-3"></div>

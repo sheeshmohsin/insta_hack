@@ -157,7 +157,7 @@ $(document).ready(function() {
         			window.location = '/agent/'
         		}
         	} else {
-        		console.log("Login Failed")
+        		console.log("Login Failed");
         	}
         });
         e.preventDefault();
@@ -172,7 +172,7 @@ $(document).ready(function() {
         	if (xhr.status === 201){
         		window.location = '/login/';
         	} else {
-        		console.log("Signup Failed")
+        		console.log("Signup Failed");
         	}
         });
         e.preventDefault();
