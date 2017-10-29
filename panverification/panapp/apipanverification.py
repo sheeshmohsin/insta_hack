@@ -40,6 +40,9 @@ class LoginUser(APIView):
     """
     View for Login
     """
+    authentication_classes = ()
+    permission_classes = ()
+    
     def post(self, request, format=None):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -52,7 +55,7 @@ class LoginUser(APIView):
                 api_key = Token.objects.create(user=user)
             if Agent.objects.filter(user=user).exists():
                 entity_type = 'agent'
-            return Response({'api_key': api_key.key, 'entity_type':entity_type}, status=status.HTTP_200_OK)
+            return Response({'api_key': api_key.key, 'entity_type':entity_type, 'username': user.username}, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
