@@ -21,12 +21,12 @@ body{
 }
 
 /*-----======= Navbar CSS Start =====-------*/
-.custom-navbar{
+/*.custom-navbar{
 	background-color:#ffffff;
 	border-color:#ffffff;
 	box-shadow: rgba(196, 196, 196, .88) 0px 0px 12px;
     border-radius: 0;
-}
+}*/
 .custom-navbar .navbar-header > a{
 	line-height: 1.8;
 	font-family:Lato-Regular;
@@ -39,7 +39,7 @@ body{
 .custom-navbar .navbar-header > a:hover{
 	color:#000000;
 }
-.custom-link li > a{
+.custom-navbar .custom-link > li > a{
 	font-family:Lato-Regular;
 	color:#676a6c;
 	-webkit-transition:all 0.3s ease-in-out;
@@ -48,7 +48,7 @@ body{
 	-ms-transition:all 0.3s ease-in-out;
 	transition:all 0.3s ease-in-out;
 }
-.custom-link li > a:hover, .custom-link li > a:active, .custom-link li > a:focus{
+.custom-navbar .custom-link > li > a:hover, .custom-navbar .custom-link > li > a:active, .custom-navbar .custom-link > li > a:focus{
 	background-color:#e7e7e7;
 	color:#000000;
 }
@@ -59,7 +59,7 @@ body{
 	padding-bottom:0;
 }
 .custom-dropdown li > a{
-	padding:8px 12px;
+	padding:8px 12px !important;
 	-webkit-transition:all 0.3s ease-in-out;
 	-moz-transition:all 0.3s ease-in-out;
 	-o-transition:all 0.3s ease-in-out;
@@ -67,7 +67,7 @@ body{
 	transition:all 0.3s ease-in-out;
 }
 .custom-dropdown li > a:hover{
-	padding-left: 5px;
+	padding-left: 20px;
 }
 .custom-box-shadow{
 	box-shadow: rgba(196, 196, 196, .88) 0px 0px 8px;
@@ -77,9 +77,13 @@ body{
 	color:#676a6c;
 	font-family:Lato-Regular;
 	opacity: 0.8;
-
 }
-.custom-text input[type="text"]{
+.custom-label i{
+	font-size:20px;
+	color:#000000;
+	vertical-align: middle;
+}
+.custom-text input[type="text"], .custom-text input[type="email"], .custom-text input[type="password"]{
 	height:42px;
 	border-color:#e0e0e0;
 	border-radius:15px;
@@ -94,7 +98,7 @@ body{
 	-ms-transition:border-color 0.5s ease-in-out;
 	transition:border-color 0.5s ease-in-out;
 }
-.custom-text input[type="text"]:focus{
+.custom-text input[type="text"]:focus,.custom-text input[type="email"]:focus, .custom-text input[type="password"]:focus{
 	border-color:#1ab394;
 	-webkit-box-shadow:none;
 	-moz-box-shadow:none;
@@ -125,6 +129,11 @@ body{
 	color:#676a6c;
 	font-family:Lato-Regular;
 	margin-bottom:15px;
+}
+.custom-heading h3{
+	color:#676a6c;
+	font-family:Lato-Regular;
+	margin-bottom:20px;
 }
 .inputfile {
     width: 0.1px;
@@ -440,6 +449,9 @@ body{
 	.custom-border-all{
 		border:none !important;
 	}
+	.custom-navbar .navbar-header > a{
+		line-height: 1.8 !important;
+	}
 	/*.image-height{
 		height:360px !important;
 	}*/
@@ -469,6 +481,15 @@ body{
 	.custom-border-all{
 		border:none !important;
 	}
+	.custom-navbar .navbar-header > a{
+		line-height: 1.8 !important;
+	}
+	.custom-navbar{
+		background-color: #ffffff !important;
+	    border-color: #ffffff !important;
+	    box-shadow: rgba(196, 196, 196, .88) 0px 0px 12px !important;
+	    border-radius: 0 !important;
+	}
 }
 @media (min-width:768px){
 	.custom-margin {
@@ -491,6 +512,18 @@ body{
 	}
 	.custom-box-shadow{
 		box-shadow: none;
+	}
+	.custom-navbar .navbar-header > a{
+		line-height: 1.2;
+	}
+	.custom-navbar{
+		background-color: #ffffff !important;
+	    border-color: #ffffff !important;
+	    box-shadow: rgba(196, 196, 196, .88) 0px 0px 12px !important;
+	    border-radius: 0 !important;
+	}
+	.custom-navbar .cutom-link> li > a {
+	    color: #777 !important;
 	}
 }
 @media (min-width:320px){
@@ -517,6 +550,19 @@ body{
 	}
 	.custom-border-all{
 		border:1px solid rgba(196, 196, 196, .88);
+	}
+	.custom-navbar .navbar-header > a{
+		line-height: 1.2;
+	}
+	.custom-navbar{
+		background-color: #333;
+    	border-color: #333;
+    	box-shadow: #1d1a1a 0px 0px 12px;
+    	border-radius: 0;, 196, 196, .88) 0px 0px 12px;
+	    border-radius: 0;
+	}
+	.custom-navbar .custom-link > li > a {
+	    color: #fff;
 	}
 	/*.image-height {
 	    height: 200px;

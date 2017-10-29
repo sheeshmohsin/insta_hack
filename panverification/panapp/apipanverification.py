@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
+from django.contrib import auth
 from panapp.serializers import UserDataSerializer, FeedbackSerializer, UserSerializer
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
@@ -39,7 +40,10 @@ class LoginUser(APIView):
     """
     View for Login
     """
-    def get(self, request, format):
+    authentication_classes = ()
+    permission_classes = ()
+    
+    def post(self, request, format=None):
         username = request.data.get('username')
         password = request.data.get('password')
         entity_type = 'user'
@@ -51,7 +55,7 @@ class LoginUser(APIView):
                 api_key = Token.objects.create(user=user)
             if Agent.objects.filter(user=user).exists():
                 entity_type = 'agent'
-            return Response({'api_key': api_key.key, 'entity_type':entity_type}, status=status.HTTP_200_OK)
+            return Response({'api_key': api_key.key, 'entity_type':entity_type, 'username': user.username}, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
