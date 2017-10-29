@@ -46,7 +46,6 @@ $(document).ready(function(){
       console.log(data);
       window.data = data;
       if (Object.keys(data).length > 0) {
-        $('#no-data').html('');
         $('#no-data').addClass('hide');
         $('#pan-card-data').removeClass('hide');
         img_url = data.user_data.extracted_image.split('/panverification')
@@ -56,7 +55,6 @@ $(document).ready(function(){
         $('#extracted-pan').text(data.user_data.extracted_pan);
         $('#image-url').attr('src', img_url[1]);
       } else {
-        $('#no-data').html('No more PAN Card left for verification');
         $('#no-data').removeClass('hide');
         $('#pan-card-data').addClass('hide');
       }

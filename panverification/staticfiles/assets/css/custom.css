@@ -425,6 +425,7 @@ body{
 	-o-transition:all 0.3s ease-in-out;
 	-ms-transition:all 0.3s ease-in-out;
 	transition:all 0.3s ease-in-out;
+	cursor: pointer;
 }
 .message-spinner a:hover, .message-spinner a:focus{
 	color:#23527c;
@@ -462,6 +463,12 @@ body{
 	height: 285px;
     width: 100%;
     border: 1px solid #f2f2f2;
+}
+#no-data{
+	font-family: Lato-Regular;
+	font-size:20px;
+	color:#676a6c;
+
 }
 @media (min-width:1200px){
 	.custom-margin{
