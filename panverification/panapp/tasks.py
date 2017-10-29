@@ -3,7 +3,7 @@ import requests
 from celery import task
 from panapp.models import UserData, FailedUserData
 from panapp.utils import extract_text, check_if_pan_card_pic, \
-            detect_if_not_forged, match_with_user_data, verify_pan_number, get_data
+            detect_if_not_forged, match_with_user_data, verify_pan_number, get_data, check_image_size
 from panapp.constants import IMG_INVALID, IMG_FORGED
 from django.conf import settings
 
@@ -11,6 +11,12 @@ from django.conf import settings
 def image_validation(data_id):
     data = UserData.objects.get(id=data_id)
     # data.is_scanned = True
+    if not check_image_size(str(data.image)):
+        data.is_invalid_auto = True
+        data.is_verified_auto = False
+        data.error_msg = "File size limit exceeded, Please upload file of less than 1024 KB"
+        data.save()
+
     r = extract_text(data)
     if r.status_code != 200:
         print "continue due to status_code != 200"

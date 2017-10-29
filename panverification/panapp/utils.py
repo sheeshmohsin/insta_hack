@@ -110,4 +110,12 @@ def verify_pan_number(parsed_text):
 	else:
 		return False
 
+def check_image_size(path):
+	try:
+		if os.path.getsize(path)/1000 < 1024:
+			return True
+		return False
+	except:
+		return False
+
 	

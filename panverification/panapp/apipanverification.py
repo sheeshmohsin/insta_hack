@@ -217,6 +217,7 @@ class CheckStatus(APIView):
             res['is_verified_auto'] = user_data.is_verified_auto
             res['is_invalid_auto'] = user_data.is_invalid_auto
             res['error_msg'] = user_data.error_msg
+            user_data.delete()
             return Response(res, status=status.HTTP_200_OK)
         return Response(res, status=status.HTTP_200_OK)
 
